@@ -1,12 +1,8 @@
-// Extrapolate p, U and phi
-p = (2*p.oldTime() - p.oldTime().oldTime());
-p.correctBoundaryConditions();
+// Extrapolate U and phi
+phi = (2*phi.oldTime() - phi.oldTime().oldTime());
 
 U = (2*U.oldTime() - U.oldTime().oldTime());
 U.correctBoundaryConditions();
-
-phi = (2*phi.oldTime() - phi.oldTime().oldTime());
-
 
 // Solve the Momentum equation
 
@@ -24,6 +20,12 @@ fvVectorMatrix UEqn
 UEqn.relax();
 
 fvOptions.constrain(UEqn);
+
+
+// Extrapolate p
+p = (2*p.oldTime() - p.oldTime().oldTime());
+p.correctBoundaryConditions();
+
 
 if (piso.momentumPredictor())
 {
